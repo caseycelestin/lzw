@@ -1,17 +1,27 @@
-#include <stdio.h>
+#include <errno.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "fileIO.h"
 
-void openOriginal(int argc, char *argv[])
+int openOriginal(FILE **fp, int argc, char *argv[])
 {
-	FILE *fp;
-	fp = fopen(argv[1], "r");
+	*fp = fopen(argv[1], "r");
 
-	char c = fgetc(fp);
-
-	while (c != EOF)
+	if(*fp == NULL)
 	{
-  	printf("%c", c);
-		c = fgetc(fp);
-	}
+		fprintf(stderr, "%s in %s %s:%d\n", strerror(errno), __func__, __FILE__, __LINE__);
+		fclose(*fp);
+		return -1;
+	} else {
+		
+		char c = fgetc(*fp);
+
+		while (c != EOF)
+		{
+  		printf("%c", c);
+			c = fgetc(*fp);
+		}
+	}	
+	return 1;
 }
