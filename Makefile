@@ -1,11 +1,14 @@
 CC = gcc
 CFLAGS = -g -Wall -pedantic
 
-all: lzw
+all: encode
 
-lzw: main.o fileIO.o
-	$(CC) $(CFLAGS) -fsanitize=address -fno-omit-frame-pointer -o lzw main.c fileIO.o
+encode: encode.o fileIO.o struct.o encode.h
+	$(CC) $(CFLAGS) -fsanitize=address -fno-omit-frame-pointer -o encode encode.c fileIO.o struct.o
 
 fileIO.o: fileIO.c fileIO.h
 	$(CC) $(CFLAGS) -c fileIO.c
+
+struct.o: struct.c struct.h
+	$(CC) $(CFLAGS) -c struct.c
 
