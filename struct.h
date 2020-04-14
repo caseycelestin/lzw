@@ -18,6 +18,8 @@ void dictFree(Node *d);
 
 void addChild(Node *p, char c);
 
+Node *isChild(Node *n, char c);
+
 void dictPrint(Node *d);
 
 void printHelp(Node *n, int t);

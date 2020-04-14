@@ -35,6 +35,17 @@ void dictFree(Node *d)
 	free(d->children);
 }
 
+Node *isChild(Node *n, char c)
+{
+	for(int i = 0; i < n->length; i++)
+	{
+		Node *child = &n->children[i];
+		if(c == child->nodeChar) return child;
+	}
+
+	return 0;
+}
+
 void addChild(Node *p, char c)
 {
 	if(p->length == p->capacity)

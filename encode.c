@@ -10,10 +10,24 @@ void encode()
 {
 	Node dictionary;
 	dictInit(&dictionary);
+/*
+	char prefixChar = fgetc(file);
+	Node prefixNode = dictionary.children[prefixChar];
+
+	while((char nextChar == fgetc(file)) != EOF)
+	{
+		
+	}
+	*/
 
 	Node *test = &dictionary.children[120];
-	addChild(test, '$');
+	addChild(test, '%');
+
 	dictPrint(&dictionary);
+
+	if(isChild(test, '%')) printf("YES!!\n");
+	if(isChild(test, 'r')) printf("NO!!\n");
+
 
 	dictFree(&dictionary);
 }
