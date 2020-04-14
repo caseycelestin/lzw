@@ -92,7 +92,7 @@ void printHelp(Node *n, int t)
 	for(int i = 0; i < n->length; i++)
 	{
 		Node child = n->children[i];		
-		printHelp(&child, ++t);
+		printHelp(&child, t + 1);
 	}	
 
 
