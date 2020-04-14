@@ -8,7 +8,7 @@
 
 void encode()
 {
-	Dict dictionary;
+	Node dictionary;
 	dictInit(&dictionary);
 	dictPrint(&dictionary);
 	

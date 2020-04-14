@@ -3,20 +3,19 @@
 
 #include <stddef.h>
 
-typedef struct dict {
-	struct node *array;
-	size_t length;
-	size_t capacity;
-} Dict;
-
 typedef struct node {
 	char nodeChar;
-	struct node *prefix;
-	struct node **children;
+	struct node *children;
+	size_t length;
+	size_t capacity;
 } Node;
 
-void dictInit(Dict *d);
+void dictInit(Node *d);
 
-void dictPrint(Dict *d);
+void addNode(Node *p, char c);
+
+void dictPrint(Node *d);
+
+void printHelp(char *p, Node *c);
 
 #endif
