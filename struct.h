@@ -8,15 +8,16 @@ typedef struct node {
 	struct node *children;
 	size_t length;
 	size_t capacity;
+	unsigned int code;
 } Node;
 
 void dictInit(Node *d);
 
-void nodeInit(Node *n, char c);
+void nodeInit(Node *n, char c, unsigned int i);
 
 void dictFree(Node *d);
 
-void addChild(Node *p, char c);
+void addChild(Node *p, char c, unsigned int i);
 
 Node *isChild(Node *n, char c);
 

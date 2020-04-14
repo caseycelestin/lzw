@@ -11,6 +11,8 @@ void encode(char *argv[])
 	Node dictionary;
 	dictInit(&dictionary);
 
+	unsigned int code = 128;
+
 	FILE *file = fopen(argv[1], "r");
 	
 	int prefixChar = fgetc(file);
@@ -24,23 +26,14 @@ void encode(char *argv[])
 			prefixNode = nextNode;
 		else
 		{
-			printf("%i\n", (int)prefixNode);
-			addChild(prefixNode, nextChar);
+			printf("<%u>", prefixNode->code);
+			addChild(prefixNode, nextChar, code++);
 			prefixNode = &dictionary.children[nextChar];
 		}	
 	}
+	printf("<%u>\n", prefixNode->code);
 
-	printf("%d\n", (int)prefixNode);
-
-	dictPrint(&dictionary);
-
-/*
-	Node *test = &dictionary.children[120];
-	addChild(test, '%');
-
-	if(isChild(test, '%')) printf("YES!!\n");
-	if(isChild(test, 'r')) printf("NO!!\n");
-*/
+	//dictPrint(&dictionary);
 
 	dictFree(&dictionary);
 }

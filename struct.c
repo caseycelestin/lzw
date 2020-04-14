@@ -11,19 +11,20 @@ void dictInit(Node *d)
 	for(int i = 0; i < 128; i++)
 	{
 		Node newChild;
-		nodeInit(&newChild, i);
+		nodeInit(&newChild, i, i);
 		(d->children)[i] = newChild;
 	}
 	d->length = 128;
 	d->capacity = 128;
 }
 
-void nodeInit(Node *n, char c)
+void nodeInit(Node *n, char c, unsigned int i)
 {
 	n->nodeChar = c;
 	n->length = 0;
 	n->capacity = 0;
 	n->children = 0;
+	n->code = i;
 }
 
 void dictFree(Node *d)
@@ -46,7 +47,7 @@ Node *isChild(Node *n, char c)
 	return 0;
 }
 
-void addChild(Node *p, char c)
+void addChild(Node *p, char c, unsigned int i)
 {
 	if(p->length == p->capacity)
 	{
@@ -68,7 +69,7 @@ void addChild(Node *p, char c)
 	}
 
 	Node newChild;
-	nodeInit(&newChild, c);
+	nodeInit(&newChild, c, i);
 	(p->children)[p->length] = newChild;
 	p->length++;	
 }
