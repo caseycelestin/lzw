@@ -12,10 +12,14 @@ typedef struct node {
 
 void dictInit(Node *d);
 
-void addNode(Node *p, char c);
+void nodeInit(Node *n, char c);
+
+void dictFree(Node *d);
+
+void addChild(Node *p, char c);
 
 void dictPrint(Node *d);
 
-void printHelp(char *p, Node *c);
+void printHelp(Node *n, int t);
 
 #endif

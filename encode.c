@@ -10,8 +10,12 @@ void encode()
 {
 	Node dictionary;
 	dictInit(&dictionary);
+
+	Node *test = &dictionary.children[120];
+	addChild(test, '$');
 	dictPrint(&dictionary);
-	
+
+	dictFree(&dictionary);
 }
 
 int main(int argc, char *argv[])
@@ -26,11 +30,3 @@ int main(int argc, char *argv[])
 
 }
 
-void printNodes(struct node **d)
-{
-	for(int i = 0; i < 128; i++)
-	{
-		struct node curr = (*d)[i];
-		printf("Char: %c\n", curr.nodeChar);
-	}
-}

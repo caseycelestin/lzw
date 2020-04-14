@@ -5,6 +5,6 @@
 #include "struct.h"
 
 
-void printNodes(struct node **d);
+void encode();
 
 #endif
