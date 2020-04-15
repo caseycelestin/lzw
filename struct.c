@@ -18,7 +18,7 @@ void dictInit(Node *d)
 	d->capacity = 128;
 }
 
-void nodeInit(Node *n, char c, unsigned int i)
+void nodeInit(Node *n, char c, uint16_t i)
 {
 	n->nodeChar = c;
 	n->length = 0;
@@ -47,7 +47,7 @@ Node *isChild(Node *n, char c)
 	return 0;
 }
 
-void addChild(Node *p, char c, unsigned int i)
+void addChild(Node *p, char c, uint16_t i)
 {
 	if(p->length == p->capacity)
 	{
@@ -62,10 +62,10 @@ void addChild(Node *p, char c, unsigned int i)
 				p->capacity = newCapacity;
 			}
 			else 
-				; // Out of Memory
+				printf("OUT OF MEMORY\n"); // Out of Memory
 		}
 		else
-			; // Overflow error
+			printf("OVERFLOW ERROR\n"); // Overflow error
 	}
 
 	Node newChild;

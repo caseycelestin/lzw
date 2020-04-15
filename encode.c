@@ -11,31 +11,41 @@ void encode(char *argv[])
 	Node dictionary;
 	dictInit(&dictionary);
 
-	unsigned int code = 128;
+	unsigned long int code = 128;
 
-	FILE *file = fopen(argv[1], "r");
+	FILE *inFile = fopen(argv[1], "r");
+	FILE *outBinFile = fopen("outBin", "wb");
+	FILE *outIntFile = fopen("outInt", "w");
 	
-	int prefixChar = fgetc(file);
+	int prefixChar = fgetc(inFile);
 	Node *prefixNode = &dictionary.children[prefixChar];
 
 	int nextChar;
-	while((nextChar = fgetc(file)) != EOF)
+	while((nextChar = fgetc(inFile)) != EOF)
 	{
 		Node *nextNode = isChild(prefixNode, nextChar);
 		if(nextNode != 0)
 			prefixNode = nextNode;
 		else
 		{
-			printf("<%u>", prefixNode->code);
+			fwrite(&prefixNode->code, sizeof(prefixNode->code), 1, outBinFile);
+			fprintf(outIntFile,"%u ", prefixNode->code);
 			addChild(prefixNode, nextChar, code++);
 			prefixNode = &dictionary.children[nextChar];
 		}	
 	}
-	printf("<%u>\n", prefixNode->code);
+	fwrite(&prefixNode->code, sizeof(prefixNode->code), 1, outBinFile);
+	fprintf(outIntFile,"%u\n", prefixNode->code);
+	
 
 	//dictPrint(&dictionary);
+	
+//	printf("TABLE SIZE = %lu\n", code);
 
 	dictFree(&dictionary);
+	fclose(inFile);
+	fclose(outBinFile);
+	fclose(outIntFile);
 }
 
 int main(int argc, char *argv[])
