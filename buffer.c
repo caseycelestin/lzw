@@ -1,13 +1,13 @@
 #include "buffer.h"
 
-void bufferInit(Buffer *b)
+void bufferInit(Buffer *b, unsigned short int n)
 {
 	b->buffer = 0;
 	b->printCheck = 0;
-	b->outBits = 8;
+	b->outBits = n;
 }
 
-void setOutBits(Buffer *b, uint16_t n)
+void setOutBits(Buffer *b, unsigned short int n)
 {
 	b->outBits = n;
 }
@@ -39,7 +39,10 @@ void checkOut(Buffer *b, FILE *f)
 
 void forceOut(Buffer *b, FILE *f)
 {
-	b->buffer = b->buffer << (16 - b->printCheck);
-	b->printCheck = 15;
-	checkOut(b, f);
+	if(b->printCheck != 0)
+	{
+		b->buffer = b->buffer << (16 - b->printCheck);
+		b->printCheck = 15;
+		checkOut(b, f);
+	}
 }

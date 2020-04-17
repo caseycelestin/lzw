@@ -10,9 +10,9 @@ typedef struct buffer {
 	unsigned short int printCheck;
 } Buffer;
 
-void bufferInit(Buffer *b);
+void bufferInit(Buffer *b, unsigned short int n);
 
-void setOutBits(Buffer *b, uint16_t n);
+void setOutBits(Buffer *b, unsigned short int n);
 
 void pushToBuffer(Buffer *b, uint16_t c, FILE *f);
 

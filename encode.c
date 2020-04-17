@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 #include "encode.h"
 #include "fileIO.h"
@@ -13,9 +14,9 @@ void encode(char *argv[])
 	dictInit(&dictionary);
 
 	Buffer b;
-	bufferInit(&b);
+	bufferInit(&b, 16);
 
-	unsigned long int code = 128;
+	uint16_t code = 128;
 
 	FILE *inFile = fopen(argv[1], "r");
 	FILE *outBinFile = fopen("outBin", "wb");
