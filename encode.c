@@ -3,6 +3,7 @@
 
 #include "encode.h"
 #include "fileIO.h"
+#include "buffer.h"
 
 
 
@@ -10,6 +11,9 @@ void encode(char *argv[])
 {
 	Node dictionary;
 	dictInit(&dictionary);
+
+	Buffer b;
+	bufferInit(&b);
 
 	unsigned long int code = 128;
 
@@ -28,13 +32,15 @@ void encode(char *argv[])
 			prefixNode = nextNode;
 		else
 		{
-			fwrite(&prefixNode->code, sizeof(prefixNode->code), 1, outBinFile);
+			pushToBuffer(&b, prefixNode->code, outBinFile);	
 			fprintf(outIntFile,"%u ", prefixNode->code);
 			addChild(prefixNode, nextChar, code++);
 			prefixNode = &dictionary.children[nextChar];
 		}	
 	}
-	fwrite(&prefixNode->code, sizeof(prefixNode->code), 1, outBinFile);
+	pushToBuffer(&b, prefixNode->code, outBinFile);	
+	forceOut(&b, outBinFile);
+// 	fwrite(&prefixNode->code, sizeof(prefixNode->code), 1, outBinFile);
 	fprintf(outIntFile,"%u\n", prefixNode->code);
 	
 
