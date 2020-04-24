@@ -20,4 +20,8 @@ void checkOut(Buffer *b, FILE *f);
 
 void forceOut(Buffer *b, FILE *f);
 
+int checkRefill(Buffer *b, FILE *f);
+
+int getNextCode(uint16_t *o, Buffer *b, FILE *f);
+
 #endif

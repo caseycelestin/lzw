@@ -46,3 +46,38 @@ void forceOut(Buffer *b, FILE *f)
 		checkOut(b, f);
 	}
 }
+
+int checkRefill(Buffer *b, FILE *f)
+{
+	if(b->printCheck++ == 0)
+	{
+		// refill buffer;
+		if((fread(&b->buffer, sizeof(b->buffer), 1, f)) != 1)
+			return -1;
+	}
+
+	if(b->printCheck == 16)
+		b->printCheck = 0;
+
+	return 1;
+}
+
+int getNextCode(uint16_t *o, Buffer *b, FILE *f)
+{
+	uint16_t out = 0;
+
+	for(int i = 0; i < b->outBits; i++)
+	{
+		b->buffer = b->buffer << 1;
+		if(checkRefill(b, f) == -1)
+			return -1;
+		out = out << 1;
+		uint16_t newbit = b->buffer & 32768;
+		newbit = newbit >> 15;
+		out = out | newbit;
+	}
+	*o = out;
+
+	return 1;
+
+}

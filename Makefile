@@ -16,8 +16,8 @@ buffer.o: buffer.c buffer.h
 	$(CC) $(CFLAGS) -c buffer.c
 
 
-decode: decode.o entries.o
-	$(CC) $(CFLAGS) -fsanitize=address -fno-omit-frame-pointer -o decode decode.c entries.o
+decode: decode.o entries.o buffer.o
+	$(CC) $(CFLAGS) -fsanitize=address -fno-omit-frame-pointer -o decode decode.c entries.o buffer.o
 
 entries.o: entries.c entries.h
 	$(CC) $(CFLAGS) -c entries.c

@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 #include "entries.h"
+#include "buffer.h"
 
 
 void decode(char *argv[])
@@ -13,10 +14,13 @@ void decode(char *argv[])
 
 	FILE *inFile = fopen(argv[1], "rb");
 
+	Buffer b;
+	bufferInit(&b, 16);
+
 	uint16_t oldCode;
 	uint16_t newCode;
-	fread(&oldCode, sizeof(oldCode), 1, inFile);
-
+	
+	getNextCode(&oldCode, &b, inFile);
 
 	String s;
 	stringInit(&s);
@@ -31,7 +35,7 @@ void decode(char *argv[])
 	stringInit(&add);
 	stringCopy(&add, &s);
 
-	while(fread(&newCode, sizeof(newCode), 1, inFile) == 1)
+	while(getNextCode(&newCode, &b, inFile)  != -1)
 	{
 		if(newCode >= decodeDict.length)
 		{
